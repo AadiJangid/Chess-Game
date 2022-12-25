@@ -156,10 +156,31 @@ public class Chess {
 
                     switch (squareInfo[0]) {
                         case "P" -> {
-                            //pawn
+                            if (squareInfo[1].equals("W")) {
+                                if (x == 6) {
+                                    if (squareInfo[2].equals("W")) {
+                                        gameBoard[x-1][y].setIcon(defaultB1);
+                                        gameBoard[x-2][y].setIcon(defaultW1);
+                                    } else if (squareInfo[2].equals("B")) {
+                                        gameBoard[x-1][y].setIcon(defaultW1);
+                                        gameBoard[x-2][y].setIcon(defaultB1);
+                                    }
+                                }
+                            } else if (squareInfo[1].equals("B")) {
+                                if (x == 1) {
+                                    if (squareInfo[2].equals("W")) {
+                                        gameBoard[x+1][y].setIcon(defaultB1);
+                                        gameBoard[x+2][y].setIcon(defaultW1);
+                                    } else if (squareInfo[2].equals("B")) {
+                                        gameBoard[x+1][y].setIcon(defaultW1);
+                                        gameBoard[x+2][y].setIcon(defaultB1);
+                                    }
+                                }
+                            }
                         }
                         case "B" -> {
                             //bishop
+
                         }
                         case "N" -> {
                             //knight
@@ -176,6 +197,7 @@ public class Chess {
                     }
 
                     inSelection = true;
+
                 } else {
                     //TODO if selected
 
@@ -491,14 +513,14 @@ public class Chess {
         gameBoard[1][7] = cellH7;
         gameBoard[0][7] = cellH8;
 
-        gameTracker[7][1] = "R_W_W_Y_N";
-        gameTracker[6][1] = "P_W_B_Y_N";
-        gameTracker[5][1] = "X_X_W_N_N";
-        gameTracker[4][1] = "X_X_B_N_N";
-        gameTracker[3][1] = "X_X_W_N_N";
-        gameTracker[2][1] = "X_X_B_N_N";
-        gameTracker[1][1] = "P_B_W_Y_N";
-        gameTracker[0][1] = "R_B_B_Y_N";
+        gameTracker[7][7] = "R_W_W_Y_N";
+        gameTracker[6][7] = "P_W_B_Y_N";
+        gameTracker[5][7] = "X_X_W_N_N";
+        gameTracker[4][7] = "X_X_B_N_N";
+        gameTracker[3][7] = "X_X_W_N_N";
+        gameTracker[2][7] = "X_X_B_N_N";
+        gameTracker[1][7] = "P_B_W_Y_N";
+        gameTracker[0][7] = "R_B_B_Y_N";
 
 
 
