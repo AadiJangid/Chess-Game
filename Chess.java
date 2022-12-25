@@ -88,6 +88,7 @@ public class Chess {
 
     private boolean inSelection;
     private String turn;
+    private String[] squareInfo;
 
 
     public void startChess() {
@@ -151,62 +152,177 @@ public class Chess {
                     }
                 }
 
-                String[] squareInfo = gameTracker[x][y].split("_");
+
 
                 if (!(inSelection)) {
                     //TODO if not selected
 
+                    squareInfo = gameTracker[x][y].split("_");
+
                     switch (squareInfo[0]) {
                         case "P" -> {
-                            if (squareInfo[1].equals("W") && turn.equals("W")) {
-                                if (x == 6) {
-                                    gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+                            if (squareInfo[1].equals("W") && turn.equals("W") && x != 0) {
+                                gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+
+                                if (gameTracker[x-1][y].split("_")[0].equals("X")) {
                                     gameTracker[x-1][y] = gameTracker[x-1][y].substring(gameTracker[x-1][y].length() - 1) + "Y";
-                                    gameTracker[x-2][y] = gameTracker[x-2][y].substring(gameTracker[x-2][y].length() - 1) + "Y";
                                     if (squareInfo[2].equals("W")) {
                                         gameBoard[x-1][y].setIcon(defaultB1);
-                                        gameBoard[x-2][y].setIcon(defaultW1);
                                     } else if (squareInfo[2].equals("B")) {
                                         gameBoard[x-1][y].setIcon(defaultW1);
-                                        gameBoard[x-2][y].setIcon(defaultB1);
+                                    }
+                                }
+
+                                if (y == 0) {
+                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X"))) {
+                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(gameTracker[x-1][y+1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x-1][y+1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x-1][y+1].setIcon(defaultB1);
+                                        }
+                                    }
+                                } else if (y == 7) {
+                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X"))) {
+                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(gameTracker[x-1][y-1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x-1][y-1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x-1][y-1].setIcon(defaultB1);
+                                        }
                                     }
                                 } else {
-
-                                }
-                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
-                                if (x == 1) {
-                                    gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
-                                    gameTracker[x+1][y] = gameTracker[x+1][y].substring(gameTracker[x+1][y].length() - 1) + "Y";
-                                    gameTracker[x+2][y] = gameTracker[x+2][y].substring(gameTracker[x+2][y].length() - 1) + "Y";
-                                    if (squareInfo[2].equals("W")) {
-                                        gameBoard[x+1][y].setIcon(defaultB1);
-                                        gameBoard[x+2][y].setIcon(defaultW1);
-                                    } else if (squareInfo[2].equals("B")) {
-                                        gameBoard[x+1][y].setIcon(defaultW1);
-                                        gameBoard[x+2][y].setIcon(defaultB1);
+                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X"))) {
+                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(gameTracker[x-1][y+1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x-1][y+1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x-1][y+1].setIcon(defaultB1);
+                                        }
+                                    }
+                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X"))) {
+                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(gameTracker[x-1][y-1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x-1][y-1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x-1][y-1].setIcon(defaultB1);
+                                        }
                                     }
                                 }
+
+                                if (x == 6) {
+                                    if (gameTracker[x-2][y].split("_")[0].equals("X")) {
+                                        gameTracker[x-2][y] = gameTracker[x-2][y].substring(gameTracker[x-2][y].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x-2][y].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x-2][y].setIcon(defaultB1);
+                                        }
+                                    }
+                                }
+
+                                inSelection = true;
+
+                            } else if (squareInfo[1].equals("B") && turn.equals("B") && x!=7) {
+                                gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+
+                                if (gameTracker[x+1][y].split("_")[0].equals("X")) {
+                                    gameTracker[x+1][y] = gameTracker[x+1][y].substring(gameTracker[x+1][y].length() - 1) + "Y";
+                                    if (squareInfo[2].equals("W")) {
+                                        gameBoard[x+1][y].setIcon(defaultB1);
+                                    } else if (squareInfo[2].equals("B")) {
+                                        gameBoard[x+1][y].setIcon(defaultW1);
+                                    }
+                                }
+
+                                if (y == 0) {
+                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X"))) {
+                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(gameTracker[x+1][y+1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x+1][y+1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x+1][y+1].setIcon(defaultB1);
+                                        }
+                                    }
+                                } else if (y == 7) {
+                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X"))) {
+                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(gameTracker[x+1][y-1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x+1][y-1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x+1][y-1].setIcon(defaultB1);
+                                        }
+                                    }
+                                } else {
+                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X"))) {
+                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(gameTracker[x+1][y+1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x+1][y+1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x+1][y+1].setIcon(defaultB1);
+                                        }
+                                    }
+                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X"))) {
+                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(gameTracker[x+1][y-1].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x+1][y-1].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x+1][y-1].setIcon(defaultB1);
+                                        }
+                                    }
+                                }
+
+                                if (x == 1) {
+                                    if (gameTracker[x+2][y].split("_")[0].equals("X")) {
+                                        gameTracker[x+2][y] = gameTracker[x+2][y].substring(gameTracker[x+2][y].length() - 1) + "Y";
+                                        if (squareInfo[2].equals("W")) {
+                                            gameBoard[x+2][y].setIcon(defaultW1);
+                                        } else if (squareInfo[2].equals("B")) {
+                                            gameBoard[x+2][y].setIcon(defaultB1);
+                                        }
+                                    }
+                                }
+
+                                inSelection = true;
+
                             }
+
                         }
                         case "B" -> {
                             //bishop
 
+
+
+                            inSelection = true;
+
                         }
                         case "N" -> {
                             //knight
+
+
+                            inSelection = true;
                         }
                         case "R" -> {
                             //rook
+
+
+                            inSelection = true;
                         }
                         case "Q" -> {
                             //queen
+
+
+                            inSelection = true;
                         }
                         case "K" -> {
                             //TODO king - remember to add castle
+
+
+                            inSelection = true;
                         }
                     }
 
-                    inSelection = true;
+
 
                 } else {
                     //TODO if selected
