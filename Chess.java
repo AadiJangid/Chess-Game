@@ -86,6 +86,8 @@ public class Chess {
     private String[][] gameTracker;
     private JButton[][] gameBoard;
 
+    private boolean inSelection;
+
 
     public void startChess() {
         //TODO add main code
@@ -93,6 +95,7 @@ public class Chess {
         //pieceType_pieceColor_squareColor_clickable_selectedOption
         gameTracker = new String[8][8];
         gameBoard = new JButton[8][8];
+        inSelection = false;
 
 
         Icon pawnWW = new ImageIcon("pawnWW.jpg");
@@ -134,6 +137,71 @@ public class Chess {
         ActionListener actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //find the indeces of the selected square
+                int x = 0;
+                int y = 0;
+                for (int i = 0; i < gameBoard.length; i++) {
+                    for (int j = 0; j < gameBoard[0].length; j++) {
+                        if (gameBoard[i][j] == e.getSource()) {
+                            x = i;
+                            y = j;
+                        }
+                    }
+                }
+
+                String[] squareInfo = gameTracker[x][y].split("_");
+
+                if (!(inSelection)) {
+                    //TODO if not selected
+
+                    switch (squareInfo[0]) {
+                        case "P" -> {
+                            //pawn
+                        }
+                        case "B" -> {
+                            //bishop
+                        }
+                        case "N" -> {
+                            //knight
+                        }
+                        case "R" -> {
+                            //rook
+                        }
+                        case "Q" -> {
+                            //queen
+                        }
+                        case "K" -> {
+                            //king
+                        }
+                    }
+
+                    inSelection = true;
+                } else {
+                    //TODO if selected
+
+                    switch (squareInfo[0]) {
+                        case "P" -> {
+                            //pawn
+                        }
+                        case "B" -> {
+                            //bishop
+                        }
+                        case "N" -> {
+                            //knight
+                        }
+                        case "R" -> {
+                            //rook
+                        }
+                        case "Q" -> {
+                            //queen
+                        }
+                        case "K" -> {
+                            //king
+                        }
+                    }
+
+                    inSelection = false;
+                }
 
             }
         };
