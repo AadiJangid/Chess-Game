@@ -90,7 +90,7 @@ public class Chess {
     public void startChess() {
         //TODO add main code
 
-        //piece_squareColor_?
+        //pieceType_pieceColor_squareColor_clickable_selectedOption
         gameTracker = new String[8][8];
         gameBoard = new JButton[8][8];
 
@@ -131,6 +131,12 @@ public class Chess {
         Icon defaultW1 = new ImageIcon("defaultW1.jpg");
 
 
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        };
 
                 
 
@@ -143,143 +149,140 @@ public class Chess {
         panel.setLayout(new GridLayout(8,8));
 
         cellA1 = new JButton(rookWB);
-        cellA1.addActionListener(e->{
-        });
+        cellA1.addActionListener(actionListener);
         cellA2 = new JButton(pawnWW);
-        cellA2.addActionListener(e->{});
+        cellA2.addActionListener(actionListener);
         cellA3 = new JButton(defaultB0);
-        cellA3.addActionListener(e->{});
+        cellA3.addActionListener(actionListener);
         cellA4 = new JButton(defaultW0);
-        cellA4.addActionListener(e->{});
+        cellA4.addActionListener(actionListener);
         cellA5 = new JButton(defaultB0);
-        cellA5.addActionListener(e->{});
+        cellA5.addActionListener(actionListener);
         cellA6 = new JButton(defaultW0);
-        cellA6.addActionListener(e->{});
+        cellA6.addActionListener(actionListener);
         cellA7 = new JButton(pawnBB);
-        cellA7.addActionListener(e->{});
+        cellA7.addActionListener(actionListener);
         cellA8 = new JButton(rookBW);
-        cellA8.addActionListener(e->{});
+        cellA8.addActionListener(actionListener);
 
         cellB1 = new JButton(knightWW);
-        cellB1.addActionListener(e->{});
+        cellB1.addActionListener(actionListener);
         cellB2 = new JButton(pawnWB);
-        cellB2.addActionListener(e->{});
+        cellB2.addActionListener(actionListener);
         cellB3 = new JButton(defaultW0);
-        cellB3.addActionListener(e->{});
+        cellB3.addActionListener(actionListener);
         cellB4 = new JButton(defaultB0);
-        cellB4.addActionListener(e->{});
+        cellB4.addActionListener(actionListener);
         cellB5 = new JButton(defaultW0);
-        cellB5.addActionListener(e->{});
+        cellB5.addActionListener(actionListener);
         cellB6 = new JButton(defaultB0);
-        cellB6.addActionListener(e->{});
+        cellB6.addActionListener(actionListener);
         cellB7 = new JButton(pawnBW);
-        cellB7.addActionListener(e->{});
+        cellB7.addActionListener(actionListener);
         cellB8 = new JButton(knightBB);
-        cellB8.addActionListener(e->{});
+        cellB8.addActionListener(actionListener);
 
         cellC1 = new JButton(bishopWB);
-        cellC1.addActionListener(e->{
-        });
+        cellC1.addActionListener(actionListener);
         cellC2 = new JButton(pawnWW);
-        cellC2.addActionListener(e->{
-        });
+        cellC2.addActionListener(actionListener);
         cellC3 = new JButton(defaultB0);
-        cellC3.addActionListener(e->{});
+        cellC3.addActionListener(actionListener);
         cellC4 = new JButton(defaultW0);
-        cellC4.addActionListener(e->{});
+        cellC4.addActionListener(actionListener);
         cellC5 = new JButton(defaultB0);
-        cellC5.addActionListener(e->{});
+        cellC5.addActionListener(actionListener);
         cellC6 = new JButton(defaultW0);
-        cellC6.addActionListener(e->{});
+        cellC6.addActionListener(actionListener);
         cellC7 = new JButton(pawnBB);
-        cellC7.addActionListener(e->{});
+        cellC7.addActionListener(actionListener);
         cellC8 = new JButton(bishopBW);
-        cellC8.addActionListener(e->{});
+        cellC8.addActionListener(actionListener);
 
         cellD1 = new JButton(queenWW);
-        cellD1.addActionListener(e->{});
+        cellD1.addActionListener(actionListener);
         cellD2 = new JButton(pawnWB);
-        cellD2.addActionListener(e->{});
+        cellD2.addActionListener(actionListener);
         cellD3 = new JButton(defaultW0);
-        cellD3.addActionListener(e->{});
+        cellD3.addActionListener(actionListener);
         cellD4 = new JButton(defaultB0);
-        cellD4.addActionListener(e->{});
+        cellD4.addActionListener(actionListener);
         cellD5 = new JButton(defaultW0);
-        cellD5.addActionListener(e->{});
+        cellD5.addActionListener(actionListener);
         cellD6 = new JButton(defaultB0);
-        cellD6.addActionListener(e->{});
+        cellD6.addActionListener(actionListener);
         cellD7 = new JButton(pawnBW);
-        cellD7.addActionListener(e->{});
+        cellD7.addActionListener(actionListener);
         cellD8 = new JButton(queenBB);
-        cellD8.addActionListener(e->{});
+        cellD8.addActionListener(actionListener);
 
         cellE1 = new JButton(kingWB);
-        cellE1.addActionListener(e->{});
+        cellE1.addActionListener(actionListener);
         cellE2 = new JButton(pawnWW);
-        cellE2.addActionListener(e->{});
+        cellE2.addActionListener(actionListener);
         cellE3 = new JButton(defaultB0);
-        cellE3.addActionListener(e->{});
+        cellE3.addActionListener(actionListener);
         cellE4 = new JButton(defaultW0);
-        cellE4.addActionListener(e->{});
+        cellE4.addActionListener(actionListener);
         cellE5 = new JButton(defaultB0);
-        cellE5.addActionListener(e->{});
+        cellE5.addActionListener(actionListener);
         cellE6 = new JButton(defaultW0);
-        cellE6.addActionListener(e->{});
+        cellE6.addActionListener(actionListener);
         cellE7 = new JButton(pawnBB);
-        cellE7.addActionListener(e->{});
+        cellE7.addActionListener(actionListener);
         cellE8 = new JButton(kingBW);
-        cellE8.addActionListener(e->{});
+        cellE8.addActionListener(actionListener);
 
         cellF1 = new JButton(bishopWW);
-        cellF1.addActionListener(e->{});
+        cellF1.addActionListener(actionListener);
         cellF2 = new JButton(pawnWB);
-        cellF2.addActionListener(e->{});
+        cellF2.addActionListener(actionListener);
         cellF3 = new JButton(defaultW0);
-        cellF3.addActionListener(e->{});
+        cellF3.addActionListener(actionListener);
         cellF4 = new JButton(defaultB0);
-        cellF4.addActionListener(e->{});
+        cellF4.addActionListener(actionListener);
         cellF5 = new JButton(defaultW0);
-        cellF5.addActionListener(e->{});
+        cellF5.addActionListener(actionListener);
         cellF6 = new JButton(defaultB0);
-        cellF6.addActionListener(e->{});
+        cellF6.addActionListener(actionListener);
         cellF7 = new JButton(pawnBW);
-        cellF7.addActionListener(e->{});
+        cellF7.addActionListener(actionListener);
         cellF8 = new JButton(bishopBB);
-        cellF8.addActionListener(e->{});
+        cellF8.addActionListener(actionListener);
 
         cellG1 = new JButton(knightWB);
-        cellG1.addActionListener(e->{});
+        cellG1.addActionListener(actionListener);
         cellG2 = new JButton(pawnWW);
-        cellG2.addActionListener(e->{});
+        cellG2.addActionListener(actionListener);
         cellG3 = new JButton(defaultB0);
-        cellG3.addActionListener(e->{});
+        cellG3.addActionListener(actionListener);
         cellG4 = new JButton(defaultW0);
-        cellG4.addActionListener(e->{});
+        cellG4.addActionListener(actionListener);
         cellG5 = new JButton(defaultB0);
-        cellG5.addActionListener(e->{});
+        cellG5.addActionListener(actionListener);
         cellG6 = new JButton(defaultW0);
-        cellG6.addActionListener(e->{});
+        cellG6.addActionListener(actionListener);
         cellG7 = new JButton(pawnBB);
-        cellG7.addActionListener(e->{});
+        cellG7.addActionListener(actionListener);
         cellG8 = new JButton(knightBW);
-        cellG8.addActionListener(e->{});
+        cellG8.addActionListener(actionListener);
 
         cellH1 = new JButton(rookWW);
-        cellH1.addActionListener(e->{});
+        cellH1.addActionListener(actionListener);
         cellH2 = new JButton(pawnWB);
-        cellH2.addActionListener(e->{});
+        cellH2.addActionListener(actionListener);
         cellH3 = new JButton(defaultW0);
-        cellH3.addActionListener(e->{});
+        cellH3.addActionListener(actionListener);
         cellH4 = new JButton(defaultB0);
-        cellH4.addActionListener(e->{});
+        cellH4.addActionListener(actionListener);
         cellH5 = new JButton(defaultW0);
-        cellH5.addActionListener(e->{});
+        cellH5.addActionListener(actionListener);
         cellH6 = new JButton(defaultB0);
-        cellH6.addActionListener(e->{});
+        cellH6.addActionListener(actionListener);
         cellH7 = new JButton(pawnBW);
-        cellH7.addActionListener(e->{});
+        cellH7.addActionListener(actionListener);
         cellH8 = new JButton(rookBB);
-        cellH8.addActionListener(e->{});
+        cellH8.addActionListener(actionListener);
 
 
         gameBoard[7][0] = cellA1;
@@ -291,6 +294,18 @@ public class Chess {
         gameBoard[1][0] = cellA7;
         gameBoard[0][0] = cellA8;
 
+
+        gameTracker[7][0] = "R_W_B_Y_N";
+        gameTracker[6][0] = "P_W_W_Y_N";
+        gameTracker[5][0] = "X_X_B_N_N";
+        gameTracker[4][0] = "X_X_W_N_N";
+        gameTracker[3][0] = "X_X_B_N_N";
+        gameTracker[2][0] = "X_X_W_N_N";
+        gameTracker[1][0] = "P_B_B_Y_N";
+        gameTracker[0][0] = "R_B_W_Y_N";
+
+
+
         gameBoard[7][1] = cellB1;
         gameBoard[6][1] = cellB2;
         gameBoard[5][1] = cellB3;
@@ -299,6 +314,15 @@ public class Chess {
         gameBoard[2][1] = cellB6;
         gameBoard[1][1] = cellB7;
         gameBoard[0][1] = cellB8;
+
+        gameTracker[7][1] = "N_W_W_Y_N";
+        gameTracker[6][1] = "P_W_B_Y_N";
+        gameTracker[5][1] = "X_X_W_N_N";
+        gameTracker[4][1] = "X_X_B_N_N";
+        gameTracker[3][1] = "X_X_W_N_N";
+        gameTracker[2][1] = "X_X_B_N_N";
+        gameTracker[1][1] = "P_B_W_Y_N";
+        gameTracker[0][1] = "N_B_B_Y_N";
 
         gameBoard[7][2] = cellC1;
         gameBoard[6][2] = cellC2;
@@ -309,6 +333,15 @@ public class Chess {
         gameBoard[1][2] = cellC7;
         gameBoard[0][2] = cellC8;
 
+        gameTracker[7][2] = "B_W_B_Y_N";
+        gameTracker[6][2] = "P_W_W_Y_N";
+        gameTracker[5][2] = "X_X_B_N_N";
+        gameTracker[4][2] = "X_X_W_N_N";
+        gameTracker[3][2] = "X_X_B_N_N";
+        gameTracker[2][2] = "X_X_W_N_N";
+        gameTracker[1][2] = "P_B_B_Y_N";
+        gameTracker[0][2] = "B_B_W_Y_N";
+
         gameBoard[7][3] = cellD1;
         gameBoard[6][3] = cellD2;
         gameBoard[5][3] = cellD3;
@@ -317,6 +350,15 @@ public class Chess {
         gameBoard[2][3] = cellD6;
         gameBoard[1][3] = cellD7;
         gameBoard[0][3] = cellD8;
+
+        gameTracker[7][3] = "Q_W_W_Y_N";
+        gameTracker[6][3] = "P_W_B_Y_N";
+        gameTracker[5][3] = "X_X_W_N_N";
+        gameTracker[4][3] = "X_X_B_N_N";
+        gameTracker[3][3] = "X_X_W_N_N";
+        gameTracker[2][3] = "X_X_B_N_N";
+        gameTracker[1][3] = "P_B_W_Y_N";
+        gameTracker[0][3] = "Q_B_B_Y_N";
 
         gameBoard[7][4] = cellE1;
         gameBoard[6][4] = cellE2;
@@ -327,6 +369,15 @@ public class Chess {
         gameBoard[1][4] = cellE7;
         gameBoard[0][4] = cellE8;
 
+        gameTracker[7][4] = "K_W_B_Y_N";
+        gameTracker[6][4] = "P_W_W_Y_N";
+        gameTracker[5][4] = "X_X_B_N_N";
+        gameTracker[4][4] = "X_X_W_N_N";
+        gameTracker[3][4] = "X_X_B_N_N";
+        gameTracker[2][4] = "X_X_W_N_N";
+        gameTracker[1][4] = "P_B_B_Y_N";
+        gameTracker[0][4] = "K_B_W_Y_N";
+
         gameBoard[7][5] = cellF1;
         gameBoard[6][5] = cellF2;
         gameBoard[5][5] = cellF3;
@@ -335,6 +386,15 @@ public class Chess {
         gameBoard[2][5] = cellF6;
         gameBoard[1][5] = cellF7;
         gameBoard[0][5] = cellF8;
+
+        gameTracker[7][5] = "B_W_W_Y_N";
+        gameTracker[6][5] = "P_W_B_Y_N";
+        gameTracker[5][5] = "X_X_W_N_N";
+        gameTracker[4][5] = "X_X_B_N_N";
+        gameTracker[3][5] = "X_X_W_N_N";
+        gameTracker[2][5] = "X_X_B_N_N";
+        gameTracker[1][5] = "P_B_W_Y_N";
+        gameTracker[0][5] = "B_B_B_Y_N";
 
         gameBoard[7][6] = cellG1;
         gameBoard[6][6] = cellG2;
@@ -345,6 +405,15 @@ public class Chess {
         gameBoard[1][6] = cellG7;
         gameBoard[0][6] = cellG8;
 
+        gameTracker[7][6] = "N_W_B_Y_N";
+        gameTracker[6][6] = "P_W_W_Y_N";
+        gameTracker[5][6] = "X_X_B_N_N";
+        gameTracker[4][6] = "X_X_W_N_N";
+        gameTracker[3][6] = "X_X_B_N_N";
+        gameTracker[2][6] = "X_X_W_N_N";
+        gameTracker[1][6] = "P_B_B_Y_N";
+        gameTracker[0][6] = "N_B_W_Y_N";
+
         gameBoard[7][7] = cellH1;
         gameBoard[6][7] = cellH2;
         gameBoard[5][7] = cellH3;
@@ -353,6 +422,15 @@ public class Chess {
         gameBoard[2][7] = cellH6;
         gameBoard[1][7] = cellH7;
         gameBoard[0][7] = cellH8;
+
+        gameTracker[7][1] = "R_W_W_Y_N";
+        gameTracker[6][1] = "P_W_B_Y_N";
+        gameTracker[5][1] = "X_X_W_N_N";
+        gameTracker[4][1] = "X_X_B_N_N";
+        gameTracker[3][1] = "X_X_W_N_N";
+        gameTracker[2][1] = "X_X_B_N_N";
+        gameTracker[1][1] = "P_B_W_Y_N";
+        gameTracker[0][1] = "R_B_B_Y_N";
 
 
 
