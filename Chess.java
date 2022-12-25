@@ -87,6 +87,7 @@ public class Chess {
     private JButton[][] gameBoard;
 
     private boolean inSelection;
+    private String turn;
 
 
     public void startChess() {
@@ -96,6 +97,7 @@ public class Chess {
         gameTracker = new String[8][8];
         gameBoard = new JButton[8][8];
         inSelection = false;
+        turn = "W";
 
 
         Icon pawnWW = new ImageIcon("pawnWW.jpg");
@@ -156,8 +158,11 @@ public class Chess {
 
                     switch (squareInfo[0]) {
                         case "P" -> {
-                            if (squareInfo[1].equals("W")) {
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
                                 if (x == 6) {
+                                    gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+                                    gameTracker[x-1][y] = gameTracker[x-1][y].substring(gameTracker[x-1][y].length() - 1) + "Y";
+                                    gameTracker[x-2][y] = gameTracker[x-2][y].substring(gameTracker[x-2][y].length() - 1) + "Y";
                                     if (squareInfo[2].equals("W")) {
                                         gameBoard[x-1][y].setIcon(defaultB1);
                                         gameBoard[x-2][y].setIcon(defaultW1);
@@ -165,9 +170,14 @@ public class Chess {
                                         gameBoard[x-1][y].setIcon(defaultW1);
                                         gameBoard[x-2][y].setIcon(defaultB1);
                                     }
+                                } else {
+
                                 }
-                            } else if (squareInfo[1].equals("B")) {
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
                                 if (x == 1) {
+                                    gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+                                    gameTracker[x+1][y] = gameTracker[x+1][y].substring(gameTracker[x+1][y].length() - 1) + "Y";
+                                    gameTracker[x+2][y] = gameTracker[x+2][y].substring(gameTracker[x+2][y].length() - 1) + "Y";
                                     if (squareInfo[2].equals("W")) {
                                         gameBoard[x+1][y].setIcon(defaultB1);
                                         gameBoard[x+2][y].setIcon(defaultW1);
@@ -192,7 +202,7 @@ public class Chess {
                             //queen
                         }
                         case "K" -> {
-                            //king
+                            //TODO king - remember to add castle
                         }
                     }
 
@@ -228,6 +238,8 @@ public class Chess {
             }
         };
 
+        //TODO add reset selections method
+        //TODO add checkmate method
                 
 
         frame = new JFrame("Chess");
