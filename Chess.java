@@ -94,7 +94,80 @@ public class Chess {
     private int prevX;
     private int prevY;
 
+    private final Icon pawnWW = new ImageIcon("pawnWW.jpg");
+    private final Icon pawnWB = new ImageIcon("pawnWB.jpg");
+    private final Icon pawnBW = new ImageIcon("pawnBW.jpg");
+    private final Icon pawnBB = new ImageIcon("pawnBB.jpg");
 
+    private final Icon rookWW = new ImageIcon("rookWW.jpg");
+    private final Icon rookWB = new ImageIcon("rookWB.jpg");
+    private final Icon rookBW = new ImageIcon("rookBW.jpg");
+    private final Icon rookBB = new ImageIcon("rookBB.jpg");
+
+    private final Icon knightWW = new ImageIcon("knightWW.jpg");
+    private final Icon knightWB = new ImageIcon("knightWB.jpg");
+    private final Icon knightBW = new ImageIcon("knightBW.jpg");
+    private final Icon knightBB = new ImageIcon("knightBB.jpg");
+
+    private final Icon bishopWW = new ImageIcon("bishopWW.jpg");
+    private final Icon bishopWB = new ImageIcon("bishopWB.jpg");
+    private final Icon bishopBW = new ImageIcon("bishopBW.jpg");
+    private final Icon bishopBB = new ImageIcon("bishopBB.jpg");
+
+    private final Icon queenWW = new ImageIcon("queenWW.jpg");
+    private final Icon queenWB = new ImageIcon("queenWB.jpg");
+    private final Icon queenBW = new ImageIcon("queenBW.jpg");
+    private final Icon queenBB = new ImageIcon("queenBB.jpg");
+
+    private final Icon kingWW = new ImageIcon("kingWW.jpg");
+    private final Icon kingWB = new ImageIcon("kingWB.jpg");
+    private final Icon kingBW = new ImageIcon("kingBW.jpg");
+    private final Icon kingBB = new ImageIcon("kingBB.jpg");
+
+    private final Icon defaultB0 = new ImageIcon("defaultB0.jpg");
+    private final Icon defaultB1 = new ImageIcon("defaultB1.jpg");
+    private final Icon defaultW0 = new ImageIcon("defaultW0.jpg");
+    private final Icon defaultW1 = new ImageIcon("defaultW1.jpg");
+
+    
+    public void reset() {
+        for (int i = 0; i < this.gameBoard.length; i++) {
+            for (int j = 0; j < this.gameBoard[0].length; j++) {
+                this.gameTracker[i][j] = this.gameTracker[i][j].substring(0,this.gameTracker[i][j].length() - 1) + "N";
+                this.gameBoard[i][j].setBackground(Color.WHITE);
+                if (this.gameBoard[i][j].getIcon().equals(defaultB1)) {
+                    this.gameBoard[i][j].setIcon(defaultB0);
+                } else if (this.gameBoard[i][j].getIcon().equals(defaultW1)) {
+                    this.gameBoard[i][j].setIcon(defaultW0);
+                }
+            }
+        }
+    }
+    
+    public void highlightCells() {
+        for (int i = 0; i < this.gameBoard.length; i++) {
+            for (int j = 0; j < this.gameBoard[0].length; j++) {
+                if (this.gameTracker[i][j].charAt(6) == 'Y') {
+                    if (this.gameTracker[i][j].charAt(0) == 'X') {
+                        if (this.gameTracker[i][j].charAt(4) == 'W') {
+                            this.gameBoard[i][j].setIcon(defaultW1);
+                        } else if (this.gameTracker[i][j].charAt(4) == 'B') {
+                            this.gameBoard[i][j].setIcon(defaultB1);
+                        }
+                    } else {
+                        this.gameBoard[i][j].setBackground(Color.GREEN);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean checkmate() {
+        //TODO add checkmate
+        return false;
+    }
+    
+    
     public void startChess() {
         //TODO add main code
 
@@ -105,40 +178,7 @@ public class Chess {
         turn = "W";
 
 
-        Icon pawnWW = new ImageIcon("pawnWW.jpg");
-        Icon pawnWB = new ImageIcon("pawnWB.jpg");
-        Icon pawnBW = new ImageIcon("pawnBW.jpg");
-        Icon pawnBB = new ImageIcon("pawnBB.jpg");
-
-        Icon rookWW = new ImageIcon("rookWW.jpg");
-        Icon rookWB = new ImageIcon("rookWB.jpg");
-        Icon rookBW = new ImageIcon("rookBW.jpg");
-        Icon rookBB = new ImageIcon("rookBB.jpg");
-
-        Icon knightWW = new ImageIcon("knightWW.jpg");
-        Icon knightWB = new ImageIcon("knightWB.jpg");
-        Icon knightBW = new ImageIcon("knightBW.jpg");
-        Icon knightBB = new ImageIcon("knightBB.jpg");
-
-        Icon bishopWW = new ImageIcon("bishopWW.jpg");
-        Icon bishopWB = new ImageIcon("bishopWB.jpg");
-        Icon bishopBW = new ImageIcon("bishopBW.jpg");
-        Icon bishopBB = new ImageIcon("bishopBB.jpg");
-
-        Icon queenWW = new ImageIcon("queenWW.jpg");
-        Icon queenWB = new ImageIcon("queenWB.jpg");
-        Icon queenBW = new ImageIcon("queenBW.jpg");
-        Icon queenBB = new ImageIcon("queenBB.jpg");
-
-        Icon kingWW = new ImageIcon("kingWW.jpg");
-        Icon kingWB = new ImageIcon("kingWB.jpg");
-        Icon kingBW = new ImageIcon("kingBW.jpg");
-        Icon kingBB = new ImageIcon("kingBB.jpg");
-
-        Icon defaultB0 = new ImageIcon("defaultB0.jpg");
-        Icon defaultB1 = new ImageIcon("defaultB1.jpg");
-        Icon defaultW0 = new ImageIcon("defaultW0.jpg");
-        Icon defaultW1 = new ImageIcon("defaultW1.jpg");
+        
 
 
         ActionListener actionListener = new ActionListener() {
@@ -234,20 +274,24 @@ public class Chess {
                                 if (y == 0) {
                                     if (!(gameTracker[x+1][y+1].split("_")[0].equals("X") || gameTracker[x+1][y+1].split("_")[1].equals("B"))) {
                                         gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(0,gameTracker[x+1][y+1].length() - 1) + "Y";
+                                        gameBoard[x+1][y+1].setBackground(Color.GREEN);
 
                                     }
                                 } else if (y == 7) {
                                     if (!(gameTracker[x+1][y-1].split("_")[0].equals("X") || gameTracker[x+1][y-1].split("_")[1].equals("B"))) {
                                         gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(0,gameTracker[x+1][y-1].length() - 1) + "Y";
+                                        gameBoard[x+1][y-1].setBackground(Color.GREEN);
 
                                     }
                                 } else {
                                     if (!(gameTracker[x+1][y+1].split("_")[0].equals("X") || gameTracker[x+1][y+1].split("_")[1].equals("B"))) {
                                         gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(0,gameTracker[x+1][y+1].length() - 1) + "Y";
+                                        gameBoard[x+1][y+1].setBackground(Color.GREEN);
 
                                     }
                                     if (!(gameTracker[x+1][y-1].split("_")[0].equals("X") || gameTracker[x+1][y-1].split("_")[1].equals("B"))) {
                                         gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(0,gameTracker[x+1][y-1].length() - 1) + "Y";
+                                        gameBoard[x+1][y-1].setBackground(Color.GREEN);
 
                                     }
                                 }
@@ -271,31 +315,748 @@ public class Chess {
                         case "B" -> {
                             //bishop
 
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y-counter] = gameTracker[x-counter][y-counter].substring(0,gameTracker[x-counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y-counter] = gameTracker[x+counter][y-counter].substring(0,gameTracker[x+counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y+counter] = gameTracker[x+counter][y+counter].substring(0,gameTracker[x+counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y+counter] = gameTracker[x-counter][y+counter].substring(0,gameTracker[x-counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
 
 
-                            inSelection = true;
+                                //make all the Y squares highlighted
+                                highlightCells();
+                            /*
+                            for (int i = 0; i < gameBoard.length; i++) {
+                                for (int j = 0; j < gameBoard[0].length; j++) {
+                                    if (gameTracker[i][j].charAt(6) == 'Y') {
+                                        if (gameTracker[i][j].charAt(0) == 'X') {
+                                            if (gameTracker[i][j].charAt(4) == 'W') {
+                                                gameBoard[i][j].setIcon(defaultW1);
+                                            } else if (gameTracker[i][j].charAt(4) == 'B') {
+                                                gameBoard[i][j].setIcon(defaultB1);
+                                            }
+                                        } else {
+                                            gameBoard[i][j].setBackground(Color.GREEN);
+                                        }
+                                    }
+                                }
+                            }
+
+                             */
+
+                                inSelection = true;
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y-counter] = gameTracker[x-counter][y-counter].substring(0,gameTracker[x-counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y-counter] = gameTracker[x+counter][y-counter].substring(0,gameTracker[x+counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y+counter] = gameTracker[x+counter][y+counter].substring(0,gameTracker[x+counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y+counter] = gameTracker[x-counter][y+counter].substring(0,gameTracker[x-counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+
+                                //make all the Y squares highlighted
+                                highlightCells();
+                                inSelection = true;
+                            }
+
+
 
                         }
                         case "N" -> {
                             //knight
 
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
+                                if (x+2 >= 0 && x+2 <= 7 && y-1 >=0 && y-1 <=7) {
+                                    if (gameTracker[x+2][y-1].charAt(2) != 'W') {
+                                        gameTracker[x+2][y-1] = gameTracker[x+2][y-1].substring(0, 
+                                                gameTracker[x+2][y-1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-2 >= 0 && x-2 <= 7 && y-1 >=0 && y-1 <=7) {
+                                    if (gameTracker[x-2][y-1].charAt(2) != 'W') {
+                                        gameTracker[x-2][y-1] = gameTracker[x-2][y-1].substring(0,
+                                                gameTracker[x-2][y-1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+2 >= 0 && x+2 <= 7 && y+1 >=0 && y+1 <=7) {
+                                    if (gameTracker[x+2][y+1].charAt(2) != 'W') {
+                                        gameTracker[x+2][y+1] = gameTracker[x+2][y+1].substring(0,
+                                                gameTracker[x+2][y+1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-2 >= 0 && x-2 <= 7 && y+1 >=0 && y+1 <=7) {
+                                    if (gameTracker[x-2][y+1].charAt(2) != 'W') {
+                                        gameTracker[x-2][y+1] = gameTracker[x-2][y+1].substring(0,
+                                                gameTracker[x-2][y+1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+1 >= 0 && x+1 <= 7 && y-2 >=0 && y-2 <=7) {
+                                    if (gameTracker[x+1][y-2].charAt(2) != 'W') {
+                                        gameTracker[x+1][y-2] = gameTracker[x+1][y-2].substring(0,
+                                                gameTracker[x+1][y-2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-1 >= 0 && x-1 <= 7 && y-2 >=0 && y-2 <=7) {
+                                    if (gameTracker[x-1][y-2].charAt(2) != 'W') {
+                                        gameTracker[x-1][y-2] = gameTracker[x-1][y-2].substring(0,
+                                                gameTracker[x-1][y-2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+1 >= 0 && x+1 <= 7 && y+2 >=0 && y+2 <=7) {
+                                    if (gameTracker[x+1][y+2].charAt(2) != 'W') {
+                                        gameTracker[x+1][y+2] = gameTracker[x+1][y+2].substring(0,
+                                                gameTracker[x+1][y+2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-1 >= 0 && x-1 <= 7 && y+2 >=0 && y+2 <=7) {
+                                    if (gameTracker[x-1][y+2].charAt(2) != 'W') {
+                                        gameTracker[x-1][y+2] = gameTracker[x-1][y+2].substring(0,
+                                                gameTracker[x-1][y+2].length() - 1) + "Y";
+                                    }
+                                }
+                                
+                                inSelection = true;
+                                highlightCells();
+                                
+                                
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
+                                if (x+2 >= 0 && x+2 <= 7 && y-1 >=0 && y-1 <=7) {
+                                    if (gameTracker[x+2][y-1].charAt(2) != 'B') {
+                                        gameTracker[x+2][y-1] = gameTracker[x+2][y-1].substring(0,
+                                                gameTracker[x+2][y-1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-2 >= 0 && x-2 <= 7 && y-1 >=0 && y-1 <=7) {
+                                    if (gameTracker[x-2][y-1].charAt(2) != 'B') {
+                                        gameTracker[x-2][y-1] = gameTracker[x-2][y-1].substring(0,
+                                                gameTracker[x-2][y-1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+2 >= 0 && x+2 <= 7 && y+1 >=0 && y+1 <=7) {
+                                    if (gameTracker[x+2][y+1].charAt(2) != 'B') {
+                                        gameTracker[x+2][y+1] = gameTracker[x+2][y+1].substring(0,
+                                                gameTracker[x+2][y+1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-2 >= 0 && x-2 <= 7 && y+1 >=0 && y+1 <=7) {
+                                    if (gameTracker[x-2][y+1].charAt(2) != 'B') {
+                                        gameTracker[x-2][y+1] = gameTracker[x-2][y+1].substring(0,
+                                                gameTracker[x-2][y+1].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+1 >= 0 && x+1 <= 7 && y-2 >=0 && y-2 <=7) {
+                                    if (gameTracker[x+1][y-2].charAt(2) != 'B') {
+                                        gameTracker[x+1][y-2] = gameTracker[x+1][y-2].substring(0,
+                                                gameTracker[x+1][y-2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-1 >= 0 && x-1 <= 7 && y-2 >=0 && y-2 <=7) {
+                                    if (gameTracker[x-1][y-2].charAt(2) != 'B') {
+                                        gameTracker[x-1][y-2] = gameTracker[x-1][y-2].substring(0,
+                                                gameTracker[x-1][y-2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x+1 >= 0 && x+1 <= 7 && y+2 >=0 && y+2 <=7) {
+                                    if (gameTracker[x+1][y+2].charAt(2) != 'B') {
+                                        gameTracker[x+1][y+2] = gameTracker[x+1][y+2].substring(0,
+                                                gameTracker[x+1][y+2].length() - 1) + "Y";
+                                    }
+                                }
+                                if (x-1 >= 0 && x-1 <= 7 && y+2 >=0 && y+2 <=7) {
+                                    if (gameTracker[x-1][y+2].charAt(2) != 'B') {
+                                        gameTracker[x-1][y+2] = gameTracker[x-1][y+2].substring(0,
+                                                gameTracker[x-1][y+2].length() - 1) + "Y";
+                                    }
+                                }
 
-                            inSelection = true;
+                                inSelection = true;
+                                highlightCells();
+                            }
+                            
+                            
                         }
                         case "R" -> {
                             //rook
 
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
 
-                            inSelection = true;
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y] = gameTracker[x-counter][y].substring(0,gameTracker[x-counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y] = gameTracker[x+counter][y].substring(0,gameTracker[x+counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(2) != 'W') {
+                                        gameTracker[x][y - counter] = gameTracker[x][y - counter].substring(0,gameTracker[x][y - counter].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(2) != 'W') {
+                                        gameTracker[x][y + counter] = gameTracker[x][y + counter].substring(0,gameTracker[x][y + counter].length() - 1) + "Y";
+                                    }
+                                }
+                                
+                                inSelection = true;
+                                highlightCells();
+
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y] = gameTracker[x-counter][y].substring(0,gameTracker[x-counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y] = gameTracker[x+counter][y].substring(0,gameTracker[x+counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(2) != 'B') {
+                                        gameTracker[x][y - counter] = gameTracker[x][y - counter].substring(0,gameTracker[x][y - counter].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(2) != 'B') {
+                                        gameTracker[x][y + counter] = gameTracker[x][y + counter].substring(0,gameTracker[x][y + counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                inSelection = true;
+                                highlightCells();
+                            }
+
+                            
                         }
                         case "Q" -> {
                             //queen
 
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y] = gameTracker[x-counter][y].substring(0,gameTracker[x-counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y] = gameTracker[x+counter][y].substring(0,gameTracker[x+counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(2) != 'W') {
+                                        gameTracker[x][y - counter] = gameTracker[x][y - counter].substring(0,gameTracker[x][y - counter].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(2) != 'W') {
+                                        gameTracker[x][y + counter] = gameTracker[x][y + counter].substring(0,gameTracker[x][y + counter].length() - 1) + "Y";
+                                    }
+                                }
 
-                            inSelection = true;
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y-counter] = gameTracker[x-counter][y-counter].substring(0,gameTracker[x-counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y-counter] = gameTracker[x+counter][y-counter].substring(0,gameTracker[x+counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(2) != 'W') {
+                                        gameTracker[x+counter][y+counter] = gameTracker[x+counter][y+counter].substring(0,gameTracker[x+counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(2) != 'W') {
+                                        gameTracker[x-counter][y+counter] = gameTracker[x-counter][y+counter].substring(0,gameTracker[x-counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                inSelection = true;
+                                highlightCells();
+                                
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
+                                int counter = 0;
+                                boolean hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y] = gameTracker[x-counter][y].substring(0,gameTracker[x-counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y] = gameTracker[x+counter][y].substring(0,gameTracker[x+counter][y].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y - counter].charAt(2) != 'B') {
+                                        gameTracker[x][y - counter] = gameTracker[x][y - counter].substring(0,gameTracker[x][y - counter].length() - 1) + "Y";
+                                    }
+                                }
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x][y + counter].charAt(2) != 'B') {
+                                        gameTracker[x][y + counter] = gameTracker[x][y + counter].substring(0,gameTracker[x][y + counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y-counter].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y-counter] = gameTracker[x-counter][y-counter].substring(0,gameTracker[x-counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y-counter < 0) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y-counter].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y-counter] = gameTracker[x+counter][y-counter].substring(0,gameTracker[x+counter][y-counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x+counter > 7 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x+counter][y+counter].charAt(2) != 'B') {
+                                        gameTracker[x+counter][y+counter] = gameTracker[x+counter][y+counter].substring(0,gameTracker[x+counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                counter = 0;
+                                hitPiece = false;
+                                while (true) {
+                                    counter++;
+                                    if (x-counter < 0 || y+counter > 7) {
+                                        break;
+                                    }
+                                    if (hitPiece) {
+                                        break;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(0) != 'X') {
+                                        hitPiece = true;
+                                    }
+                                    if (gameTracker[x-counter][y+counter].charAt(2) != 'B') {
+                                        gameTracker[x-counter][y+counter] = gameTracker[x-counter][y+counter].substring(0,gameTracker[x-counter][y+counter].length() - 1) + "Y";
+                                    }
+                                }
+
+                                inSelection = true;
+                                highlightCells();
+                            }
+                            
                         }
                         case "K" -> {
                             //TODO king - remember to add castle
+
 
 
                             inSelection = true;
@@ -345,6 +1106,13 @@ public class Chess {
                                         gameBoard[prevX][prevY].setIcon(defaultB0);
                                     }
                                 }
+
+                                if (turn.equals("W")) {
+                                    turn = "B";
+                                } else if (turn.equals("B")) {
+                                    turn = "W";
+                                }
+
                             }
 
                             if (gameTracker[x][y].split("_")[1].equals("W")) {
@@ -368,6 +1136,8 @@ public class Chess {
                             }
 
                             //TODO add reset selections
+                            reset();
+                            /*
                             for (int i = 0; i < gameBoard.length; i++) {
                                 for (int j = 0; j < gameBoard[0].length; j++) {
                                     gameTracker[i][j] = gameTracker[i][j].substring(0,gameTracker[i][j].length() - 1) + "N";
@@ -380,19 +1150,204 @@ public class Chess {
                                 }
                             }
 
+                             */
+
+
 
                         }
                         case "B" -> {
                             //bishop
+
+                            if (gameTracker[x][y].split("_")[3].equals("Y")) {
+
+                                if (squareInfo[1].equals("W")) {
+                                    gameTracker[x][y] = "B_W_" + gameTracker[x][y].split("_")[2] + "_N";
+                                } else if (squareInfo[1].equals("B")) {
+                                    gameTracker[x][y] = "B_B_" + gameTracker[x][y].split("_")[2] + "_N";
+                                }
+                                gameTracker[prevX][prevY] = "X_X_" + gameTracker[prevX][prevY].split("_")[2] + "_N";
+
+
+                                if (squareInfo[1].equals("W")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(bishopWW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(bishopWB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                } else if (squareInfo[1].equals("B")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(bishopBW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(bishopBB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                }
+
+                                if (turn.equals("W")) {
+                                    turn = "B";
+                                } else if (turn.equals("B")) {
+                                    turn = "W";
+                                }
+
+                            }
+
+                            reset();
+
+
                         }
                         case "N" -> {
                             //knight
+
+                            if (gameTracker[x][y].split("_")[3].equals("Y")) {
+
+                                if (squareInfo[1].equals("W")) {
+                                    gameTracker[x][y] = "N_W_" + gameTracker[x][y].split("_")[2] + "_N";
+                                } else if (squareInfo[1].equals("B")) {
+                                    gameTracker[x][y] = "N_B_" + gameTracker[x][y].split("_")[2] + "_N";
+                                }
+                                gameTracker[prevX][prevY] = "X_X_" + gameTracker[prevX][prevY].split("_")[2] + "_N";
+
+
+                                if (squareInfo[1].equals("W")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(knightWW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(knightWB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                } else if (squareInfo[1].equals("B")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(knightBW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(knightBB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                }
+
+                                if (turn.equals("W")) {
+                                    turn = "B";
+                                } else if (turn.equals("B")) {
+                                    turn = "W";
+                                }
+
+                            }
+
+                            reset();
+
+
                         }
                         case "R" -> {
                             //rook
+
+
+                            if (gameTracker[x][y].split("_")[3].equals("Y")) {
+
+                                if (squareInfo[1].equals("W")) {
+                                    gameTracker[x][y] = "R_W_" + gameTracker[x][y].split("_")[2] + "_N";
+                                } else if (squareInfo[1].equals("B")) {
+                                    gameTracker[x][y] = "R_B_" + gameTracker[x][y].split("_")[2] + "_N";
+                                }
+                                gameTracker[prevX][prevY] = "X_X_" + gameTracker[prevX][prevY].split("_")[2] + "_N";
+
+
+                                if (squareInfo[1].equals("W")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(rookWW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(rookWB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                } else if (squareInfo[1].equals("B")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(rookBW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(rookBB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                }
+
+                                if (turn.equals("W")) {
+                                    turn = "B";
+                                } else if (turn.equals("B")) {
+                                    turn = "W";
+                                }
+
+                            }
+
+                            reset();
+
                         }
                         case "Q" -> {
                             //queen
+                            if (gameTracker[x][y].split("_")[3].equals("Y")) {
+
+                                if (squareInfo[1].equals("W")) {
+                                    gameTracker[x][y] = "Q_W_" + gameTracker[x][y].split("_")[2] + "_N";
+                                } else if (squareInfo[1].equals("B")) {
+                                    gameTracker[x][y] = "Q_B_" + gameTracker[x][y].split("_")[2] + "_N";
+                                }
+                                gameTracker[prevX][prevY] = "X_X_" + gameTracker[prevX][prevY].split("_")[2] + "_N";
+
+
+                                if (squareInfo[1].equals("W")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(queenWW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(queenWB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                } else if (squareInfo[1].equals("B")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(queenBW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(queenBB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                }
+
+                                if (turn.equals("W")) {
+                                    turn = "B";
+                                } else if (turn.equals("B")) {
+                                    turn = "W";
+                                }
+
+                            }
+
+                            reset();
+
                         }
                         case "K" -> {
                             //king
