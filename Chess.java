@@ -94,6 +94,9 @@ public class Chess {
     private int prevX;
     private int prevY;
 
+    private int x;
+    private int y;
+
     private final Icon pawnWW = new ImageIcon("pawnWW.jpg");
     private final Icon pawnWB = new ImageIcon("pawnWB.jpg");
     private final Icon pawnBW = new ImageIcon("pawnBW.jpg");
@@ -185,8 +188,8 @@ public class Chess {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //find the indeces of the selected square
-                int x = 0;
-                int y = 0;
+                x = 0;
+                y = 0;
                 for (int i = 0; i < gameBoard.length; i++) {
                     for (int j = 0; j < gameBoard[0].length; j++) {
                         if (gameBoard[i][j] == e.getSource()) {
@@ -1057,6 +1060,17 @@ public class Chess {
                         case "K" -> {
                             //TODO king - remember to add castle
 
+                            if (squareInfo[1].equals("W") && turn.equals("W")) {
+
+                                for (int i = 0; i < gameTracker.length; i++) {
+                                    for (int j = 0; j < gameTracker[0].length; j++) {
+
+                                    }
+                                }
+
+                            } else if (squareInfo[1].equals("B") && turn.equals("B")) {
+
+                            }
 
 
                             inSelection = true;
