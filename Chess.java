@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
+import java.util.Arrays;
 
 public class Chess {
 
@@ -89,12 +91,14 @@ public class Chess {
     private boolean inSelection;
     private String turn;
     private String[] squareInfo;
+    private int prevX;
+    private int prevY;
 
 
     public void startChess() {
         //TODO add main code
 
-        //pieceType_pieceColor_squareColor_clickable_selectedOption
+        //pieceType_pieceColor_squareColor_moveable
         gameTracker = new String[8][8];
         gameBoard = new JButton[8][8];
         inSelection = false;
@@ -155,17 +159,19 @@ public class Chess {
 
 
                 if (!(inSelection)) {
+
                     //TODO if not selected
 
                     squareInfo = gameTracker[x][y].split("_");
+                    prevX = x;
+                    prevY = y;
 
                     switch (squareInfo[0]) {
                         case "P" -> {
                             if (squareInfo[1].equals("W") && turn.equals("W") && x != 0) {
-                                gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
-
+                                //gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
                                 if (gameTracker[x-1][y].split("_")[0].equals("X")) {
-                                    gameTracker[x-1][y] = gameTracker[x-1][y].substring(gameTracker[x-1][y].length() - 1) + "Y";
+                                    gameTracker[x-1][y] = gameTracker[x-1][y].substring(0,gameTracker[x-1][y].length() - 1) + "Y";
                                     if (squareInfo[2].equals("W")) {
                                         gameBoard[x-1][y].setIcon(defaultB1);
                                     } else if (squareInfo[2].equals("B")) {
@@ -173,46 +179,35 @@ public class Chess {
                                     }
                                 }
 
+                                //TODO add highlighting for pieces being taken
                                 if (y == 0) {
-                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X"))) {
-                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(gameTracker[x-1][y+1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x-1][y+1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x-1][y+1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X") || gameTracker[x-1][y+1].split("_")[1].equals("W"))) {
+                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(0,gameTracker[x-1][y+1].length() - 1) + "Y";
+                                        gameBoard[x-1][y+1].setBackground(Color.GREEN);
+
                                     }
                                 } else if (y == 7) {
-                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X"))) {
-                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(gameTracker[x-1][y-1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x-1][y-1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x-1][y-1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X") || gameTracker[x-1][y-1].split("_")[1].equals("W"))) {
+                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(0,gameTracker[x-1][y-1].length() - 1) + "Y";
+                                        gameBoard[x-1][y-1].setBackground(Color.GREEN);
+
                                     }
                                 } else {
-                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X"))) {
-                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(gameTracker[x-1][y+1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x-1][y+1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x-1][y+1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x-1][y+1].split("_")[0].equals("X") || gameTracker[x-1][y+1].split("_")[1].equals("W"))) {
+                                        gameTracker[x-1][y+1] = gameTracker[x-1][y+1].substring(0,gameTracker[x-1][y+1].length() - 1) + "Y";
+                                        gameBoard[x-1][y+1].setBackground(Color.GREEN);
+
                                     }
-                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X"))) {
-                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(gameTracker[x-1][y-1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x-1][y-1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x-1][y-1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x-1][y-1].split("_")[0].equals("X") || gameTracker[x-1][y-1].split("_")[1].equals("W"))) {
+                                        gameTracker[x-1][y-1] = gameTracker[x-1][y-1].substring(0,gameTracker[x-1][y-1].length() - 1) + "Y";
+                                        gameBoard[x-1][y-1].setBackground(Color.GREEN);
+
                                     }
                                 }
 
                                 if (x == 6) {
                                     if (gameTracker[x-2][y].split("_")[0].equals("X")) {
-                                        gameTracker[x-2][y] = gameTracker[x-2][y].substring(gameTracker[x-2][y].length() - 1) + "Y";
+                                        gameTracker[x-2][y] = gameTracker[x-2][y].substring(0,gameTracker[x-2][y].length() - 1) + "Y";
                                         if (squareInfo[2].equals("W")) {
                                             gameBoard[x-2][y].setIcon(defaultW1);
                                         } else if (squareInfo[2].equals("B")) {
@@ -224,10 +219,10 @@ public class Chess {
                                 inSelection = true;
 
                             } else if (squareInfo[1].equals("B") && turn.equals("B") && x!=7) {
-                                gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
+                                //gameTracker[x][y] = gameTracker[x][y].substring(gameTracker[x][y].length() - 1) + "Y";
 
                                 if (gameTracker[x+1][y].split("_")[0].equals("X")) {
-                                    gameTracker[x+1][y] = gameTracker[x+1][y].substring(gameTracker[x+1][y].length() - 1) + "Y";
+                                    gameTracker[x+1][y] = gameTracker[x+1][y].substring(0,gameTracker[x+1][y].length() - 1) + "Y";
                                     if (squareInfo[2].equals("W")) {
                                         gameBoard[x+1][y].setIcon(defaultB1);
                                     } else if (squareInfo[2].equals("B")) {
@@ -235,46 +230,31 @@ public class Chess {
                                     }
                                 }
 
+                                //TODO add highlighting when about to take a piece
                                 if (y == 0) {
-                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X"))) {
-                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(gameTracker[x+1][y+1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x+1][y+1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x+1][y+1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X") || gameTracker[x+1][y+1].split("_")[1].equals("B"))) {
+                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(0,gameTracker[x+1][y+1].length() - 1) + "Y";
+
                                     }
                                 } else if (y == 7) {
-                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X"))) {
-                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(gameTracker[x+1][y-1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x+1][y-1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x+1][y-1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X") || gameTracker[x+1][y-1].split("_")[1].equals("B"))) {
+                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(0,gameTracker[x+1][y-1].length() - 1) + "Y";
+
                                     }
                                 } else {
-                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X"))) {
-                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(gameTracker[x+1][y+1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x+1][y+1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x+1][y+1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x+1][y+1].split("_")[0].equals("X") || gameTracker[x+1][y+1].split("_")[1].equals("B"))) {
+                                        gameTracker[x+1][y+1] = gameTracker[x+1][y+1].substring(0,gameTracker[x+1][y+1].length() - 1) + "Y";
+
                                     }
-                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X"))) {
-                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(gameTracker[x+1][y-1].length() - 1) + "Y";
-                                        if (squareInfo[2].equals("W")) {
-                                            gameBoard[x+1][y-1].setIcon(defaultW1);
-                                        } else if (squareInfo[2].equals("B")) {
-                                            gameBoard[x+1][y-1].setIcon(defaultB1);
-                                        }
+                                    if (!(gameTracker[x+1][y-1].split("_")[0].equals("X") || gameTracker[x+1][y-1].split("_")[1].equals("B"))) {
+                                        gameTracker[x+1][y-1] = gameTracker[x+1][y-1].substring(0,gameTracker[x+1][y-1].length() - 1) + "Y";
+
                                     }
                                 }
 
                                 if (x == 1) {
                                     if (gameTracker[x+2][y].split("_")[0].equals("X")) {
-                                        gameTracker[x+2][y] = gameTracker[x+2][y].substring(gameTracker[x+2][y].length() - 1) + "Y";
+                                        gameTracker[x+2][y] = gameTracker[x+2][y].substring(0,gameTracker[x+2][y].length() - 1) + "Y";
                                         if (squareInfo[2].equals("W")) {
                                             gameBoard[x+2][y].setIcon(defaultW1);
                                         } else if (squareInfo[2].equals("B")) {
@@ -330,6 +310,77 @@ public class Chess {
                     switch (squareInfo[0]) {
                         case "P" -> {
                             //pawn
+
+
+                            if (gameTracker[x][y].split("_")[3].equals("Y")) {
+
+                                if (squareInfo[1].equals("W")) {
+                                    gameTracker[x][y] = "P_W_" + gameTracker[x][y].split("_")[2] + "_N";
+                                } else if (squareInfo[1].equals("B")) {
+                                    gameTracker[x][y] = "P_B_" + gameTracker[x][y].split("_")[2] + "_N";
+                                }
+                                gameTracker[prevX][prevY] = "X_X_" + gameTracker[prevX][prevY].split("_")[2] + "_N";
+
+
+                                if (squareInfo[1].equals("W")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(pawnWW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(pawnWB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                } else if (squareInfo[1].equals("B")) {
+                                    if (gameTracker[x][y].split("_")[2].equals("W")) {
+                                        gameBoard[x][y].setIcon(pawnBW);
+                                    } else if (gameTracker[x][y].split("_")[2].equals("B")) {
+                                        gameBoard[x][y].setIcon(pawnBB);
+                                    }
+                                    if (gameTracker[prevX][prevY].split("_")[2].equals("W")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultW0);
+                                    } else if (gameTracker[prevX][prevY].split("_")[2].equals("B")) {
+                                        gameBoard[prevX][prevY].setIcon(defaultB0);
+                                    }
+                                }
+                            }
+
+                            if (gameTracker[x][y].split("_")[1].equals("W")) {
+                                if (x == 0) {
+                                    gameTracker[x][y] = "Q" + gameTracker[x][y].substring(1);
+                                    if (gameTracker[x][y].charAt(4) == 'W') {
+                                        gameBoard[x][y].setIcon(queenWW);
+                                    } else if (gameTracker[x][y].charAt(4) == 'B') {
+                                        gameBoard[x][y].setIcon(queenWB);
+                                    }
+                                }
+                            } else if (gameTracker[x][y].split("_")[1].equals("B")) {
+                                if (x == 7) {
+                                    gameTracker[x][y] = "Q" + gameTracker[x][y].substring(1);
+                                    if (gameTracker[x][y].charAt(4) == 'W') {
+                                        gameBoard[x][y].setIcon(queenBW);
+                                    } else if (gameTracker[x][y].charAt(4) == 'B') {
+                                        gameBoard[x][y].setIcon(queenBB);
+                                    }
+                                }
+                            }
+
+                            //TODO add reset selections
+                            for (int i = 0; i < gameBoard.length; i++) {
+                                for (int j = 0; j < gameBoard[0].length; j++) {
+                                    gameTracker[i][j] = gameTracker[i][j].substring(0,gameTracker[i][j].length() - 1) + "N";
+                                    gameBoard[i][j].setBackground(Color.WHITE);
+                                    if (gameBoard[i][j].getIcon().equals(defaultB1)) {
+                                        gameBoard[i][j].setIcon(defaultB0);
+                                    } else if (gameBoard[i][j].getIcon().equals(defaultW1)) {
+                                        gameBoard[i][j].setIcon(defaultW0);
+                                    }
+                                }
+                            }
+
+
                         }
                         case "B" -> {
                             //bishop
@@ -349,6 +400,9 @@ public class Chess {
                     }
 
                     inSelection = false;
+
+                    //TODO add checkmate
+
                 }
 
             }
@@ -513,14 +567,14 @@ public class Chess {
         gameBoard[0][0] = cellA8;
 
 
-        gameTracker[7][0] = "R_W_B_Y_N";
-        gameTracker[6][0] = "P_W_W_Y_N";
-        gameTracker[5][0] = "X_X_B_N_N";
-        gameTracker[4][0] = "X_X_W_N_N";
-        gameTracker[3][0] = "X_X_B_N_N";
-        gameTracker[2][0] = "X_X_W_N_N";
-        gameTracker[1][0] = "P_B_B_Y_N";
-        gameTracker[0][0] = "R_B_W_Y_N";
+        gameTracker[7][0] = "R_W_B_N";
+        gameTracker[6][0] = "P_W_W_N";
+        gameTracker[5][0] = "X_X_B_N";
+        gameTracker[4][0] = "X_X_W_N";
+        gameTracker[3][0] = "X_X_B_N";
+        gameTracker[2][0] = "X_X_W_N";
+        gameTracker[1][0] = "P_B_B_N";
+        gameTracker[0][0] = "R_B_W_N";
 
 
 
@@ -533,14 +587,14 @@ public class Chess {
         gameBoard[1][1] = cellB7;
         gameBoard[0][1] = cellB8;
 
-        gameTracker[7][1] = "N_W_W_Y_N";
-        gameTracker[6][1] = "P_W_B_Y_N";
-        gameTracker[5][1] = "X_X_W_N_N";
-        gameTracker[4][1] = "X_X_B_N_N";
-        gameTracker[3][1] = "X_X_W_N_N";
-        gameTracker[2][1] = "X_X_B_N_N";
-        gameTracker[1][1] = "P_B_W_Y_N";
-        gameTracker[0][1] = "N_B_B_Y_N";
+        gameTracker[7][1] = "N_W_W_N";
+        gameTracker[6][1] = "P_W_B_N";
+        gameTracker[5][1] = "X_X_W_N";
+        gameTracker[4][1] = "X_X_B_N";
+        gameTracker[3][1] = "X_X_W_N";
+        gameTracker[2][1] = "X_X_B_N";
+        gameTracker[1][1] = "P_B_W_N";
+        gameTracker[0][1] = "N_B_B_N";
 
         gameBoard[7][2] = cellC1;
         gameBoard[6][2] = cellC2;
@@ -551,14 +605,14 @@ public class Chess {
         gameBoard[1][2] = cellC7;
         gameBoard[0][2] = cellC8;
 
-        gameTracker[7][2] = "B_W_B_Y_N";
-        gameTracker[6][2] = "P_W_W_Y_N";
-        gameTracker[5][2] = "X_X_B_N_N";
-        gameTracker[4][2] = "X_X_W_N_N";
-        gameTracker[3][2] = "X_X_B_N_N";
-        gameTracker[2][2] = "X_X_W_N_N";
-        gameTracker[1][2] = "P_B_B_Y_N";
-        gameTracker[0][2] = "B_B_W_Y_N";
+        gameTracker[7][2] = "B_W_B_N";
+        gameTracker[6][2] = "P_W_W_N";
+        gameTracker[5][2] = "X_X_B_N";
+        gameTracker[4][2] = "X_X_W_N";
+        gameTracker[3][2] = "X_X_B_N";
+        gameTracker[2][2] = "X_X_W_N";
+        gameTracker[1][2] = "P_B_B_N";
+        gameTracker[0][2] = "B_B_W_N";
 
         gameBoard[7][3] = cellD1;
         gameBoard[6][3] = cellD2;
@@ -569,14 +623,14 @@ public class Chess {
         gameBoard[1][3] = cellD7;
         gameBoard[0][3] = cellD8;
 
-        gameTracker[7][3] = "Q_W_W_Y_N";
-        gameTracker[6][3] = "P_W_B_Y_N";
-        gameTracker[5][3] = "X_X_W_N_N";
-        gameTracker[4][3] = "X_X_B_N_N";
-        gameTracker[3][3] = "X_X_W_N_N";
-        gameTracker[2][3] = "X_X_B_N_N";
-        gameTracker[1][3] = "P_B_W_Y_N";
-        gameTracker[0][3] = "Q_B_B_Y_N";
+        gameTracker[7][3] = "Q_W_W_N";
+        gameTracker[6][3] = "P_W_B_N";
+        gameTracker[5][3] = "X_X_W_N";
+        gameTracker[4][3] = "X_X_B_N";
+        gameTracker[3][3] = "X_X_W_N";
+        gameTracker[2][3] = "X_X_B_N";
+        gameTracker[1][3] = "P_B_W_N";
+        gameTracker[0][3] = "Q_B_B_N";
 
         gameBoard[7][4] = cellE1;
         gameBoard[6][4] = cellE2;
@@ -587,14 +641,14 @@ public class Chess {
         gameBoard[1][4] = cellE7;
         gameBoard[0][4] = cellE8;
 
-        gameTracker[7][4] = "K_W_B_Y_N";
-        gameTracker[6][4] = "P_W_W_Y_N";
-        gameTracker[5][4] = "X_X_B_N_N";
-        gameTracker[4][4] = "X_X_W_N_N";
-        gameTracker[3][4] = "X_X_B_N_N";
-        gameTracker[2][4] = "X_X_W_N_N";
-        gameTracker[1][4] = "P_B_B_Y_N";
-        gameTracker[0][4] = "K_B_W_Y_N";
+        gameTracker[7][4] = "K_W_B_N";
+        gameTracker[6][4] = "P_W_W_N";
+        gameTracker[5][4] = "X_X_B_N";
+        gameTracker[4][4] = "X_X_W_N";
+        gameTracker[3][4] = "X_X_B_N";
+        gameTracker[2][4] = "X_X_W_N";
+        gameTracker[1][4] = "P_B_B_N";
+        gameTracker[0][4] = "K_B_W_N";
 
         gameBoard[7][5] = cellF1;
         gameBoard[6][5] = cellF2;
@@ -605,14 +659,14 @@ public class Chess {
         gameBoard[1][5] = cellF7;
         gameBoard[0][5] = cellF8;
 
-        gameTracker[7][5] = "B_W_W_Y_N";
-        gameTracker[6][5] = "P_W_B_Y_N";
-        gameTracker[5][5] = "X_X_W_N_N";
-        gameTracker[4][5] = "X_X_B_N_N";
-        gameTracker[3][5] = "X_X_W_N_N";
-        gameTracker[2][5] = "X_X_B_N_N";
-        gameTracker[1][5] = "P_B_W_Y_N";
-        gameTracker[0][5] = "B_B_B_Y_N";
+        gameTracker[7][5] = "B_W_W_N";
+        gameTracker[6][5] = "P_W_B_N";
+        gameTracker[5][5] = "X_X_W_N";
+        gameTracker[4][5] = "X_X_B_N";
+        gameTracker[3][5] = "X_X_W_N";
+        gameTracker[2][5] = "X_X_B_N";
+        gameTracker[1][5] = "P_B_W_N";
+        gameTracker[0][5] = "B_B_B_N";
 
         gameBoard[7][6] = cellG1;
         gameBoard[6][6] = cellG2;
@@ -623,14 +677,14 @@ public class Chess {
         gameBoard[1][6] = cellG7;
         gameBoard[0][6] = cellG8;
 
-        gameTracker[7][6] = "N_W_B_Y_N";
-        gameTracker[6][6] = "P_W_W_Y_N";
-        gameTracker[5][6] = "X_X_B_N_N";
-        gameTracker[4][6] = "X_X_W_N_N";
-        gameTracker[3][6] = "X_X_B_N_N";
-        gameTracker[2][6] = "X_X_W_N_N";
-        gameTracker[1][6] = "P_B_B_Y_N";
-        gameTracker[0][6] = "N_B_W_Y_N";
+        gameTracker[7][6] = "N_W_B_N";
+        gameTracker[6][6] = "P_W_W_N";
+        gameTracker[5][6] = "X_X_B_N";
+        gameTracker[4][6] = "X_X_W_N";
+        gameTracker[3][6] = "X_X_B_N";
+        gameTracker[2][6] = "X_X_W_N";
+        gameTracker[1][6] = "P_B_B_N";
+        gameTracker[0][6] = "N_B_W_N";
 
         gameBoard[7][7] = cellH1;
         gameBoard[6][7] = cellH2;
@@ -641,15 +695,22 @@ public class Chess {
         gameBoard[1][7] = cellH7;
         gameBoard[0][7] = cellH8;
 
-        gameTracker[7][7] = "R_W_W_Y_N";
-        gameTracker[6][7] = "P_W_B_Y_N";
-        gameTracker[5][7] = "X_X_W_N_N";
-        gameTracker[4][7] = "X_X_B_N_N";
-        gameTracker[3][7] = "X_X_W_N_N";
-        gameTracker[2][7] = "X_X_B_N_N";
-        gameTracker[1][7] = "P_B_W_Y_N";
-        gameTracker[0][7] = "R_B_B_Y_N";
+        gameTracker[7][7] = "R_W_W_N";
+        gameTracker[6][7] = "P_W_B_N";
+        gameTracker[5][7] = "X_X_W_N";
+        gameTracker[4][7] = "X_X_B_N";
+        gameTracker[3][7] = "X_X_W_N";
+        gameTracker[2][7] = "X_X_B_N";
+        gameTracker[1][7] = "P_B_W_N";
+        gameTracker[0][7] = "R_B_B_N";
 
+
+
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[0].length; j++) {
+                gameBoard[i][j].setBackground(Color.WHITE);
+            }
+        }
 
 
         panel.add(cellA8);
