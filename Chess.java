@@ -181,7 +181,7 @@ public class Chess {
         //TODO finish method
 
         boolean result = false;
-
+        
 
         System.out.println("Checkmate: " + result);
         return result;
